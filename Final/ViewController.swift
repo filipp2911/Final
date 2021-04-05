@@ -47,12 +47,18 @@ class ViewController: UIViewController {
                error == nil,
                let requestedWord = try? JSONDecoder().decode(Request.self, from: data){
                 print(requestedWord)
-               // UserDefaults.standard.set(requestedWord, forKey: "I")
+                let userDefaults = UserDefaults.standard
+                userDefaults.set("я", forKey: "I")
+                
+                for (key, value) in UserDefaults.standard.dictionaryRepresentation() {
+                    print("\(key) = \(value) \n")
+                }
             }
         }
         wordTask.resume()
         
     }
+    
     
     func showAlert(withMessage message: String) {
         let alertController = UIAlertController(title: "Translation", message: message, preferredStyle: .alert)
@@ -66,7 +72,9 @@ class ViewController: UIViewController {
     
     
     @IBAction func fullMessageTapped(_ sender: Any) {
-        showAlert(withMessage: "name")//name .text!)
+        let name = UserDefaults.standard.string(forKey: "name")
+        print(name)
+        showAlert(withMessage: "\(name)")//name .text!)
     }
 }
     
